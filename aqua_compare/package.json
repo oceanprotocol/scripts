@@ -1,0 +1,17 @@
+{
+  "name": "aquacompare",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@oceanprotocol/lib": "^2.2.2",
+    "cross-fetch": "^3.1.5",
+    "crypto-js": "^4.1.1"
+  }
+}
+
