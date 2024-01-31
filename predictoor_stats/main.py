@@ -2,13 +2,15 @@ import requests
 import tabulate
 import operator
 import sys
+import time
 from subgrapy import get_predictions,print_nice,get_contracts,print_contracts
 
 
 if len(sys.argv) < 2 or sys.argv[1] is None:
-    print("Usage:  main.py <contract_address> <number_of_slots = default 10> <sort_method>")
+    print("Usage:  main.py <contract_address> <number_of_slots = default 10> <sort_method> <until_timestamp = default now>")
     print("*sort_method=1:  slot desc,user_address")
     print("*sort_method=2:  slot desc,amount desc,user_address (default)")
+    print("*until_timestamp:  iterate from this slot desc (default last)")
     print("\nPlease provide a contract address.  Here is the list: \n")
     contract=get_contracts()
     print_contracts(contract)
@@ -23,8 +25,12 @@ sort=2
 if len(sys.argv) > 3:
     if int(sys.argv[3]) == 1:
         sort=1
+ts = round(time.time())
+if len(sys.argv) > 4:
+    if int(sys.argv[4]) > 1:
+        ts=int(sys.argv[4])
 
-stats=get_predictions(sys.argv[1],limit)
+stats=get_predictions(sys.argv[1],limit,ts)
 
 #use the following to sort:  slot desc,user_address
 if sort==1:

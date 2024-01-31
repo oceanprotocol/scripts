@@ -39,8 +39,8 @@ def get_contracts():
             return {}
     return contracts
 
-def get_predictions(contract,no_of_slots):
-    ts = round(time.time())
+def get_predictions(contract,no_of_slots,ts):
+    
     stats=[]
     while True:
         query = """
