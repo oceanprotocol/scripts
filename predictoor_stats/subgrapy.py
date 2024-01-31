@@ -37,7 +37,8 @@ def get_contracts():
     except Exception as e:
             print(e)
             return {}
-    return contracts
+    
+    return sorted(contracts, key=lambda x: (x[1], x[2]))
 
 def get_predictions(contract,no_of_slots,ts):
     
