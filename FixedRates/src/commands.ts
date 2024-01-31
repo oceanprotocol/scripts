@@ -15,13 +15,13 @@ export class Commands {
 	//public config: Config;
     public subgraphURL:string
     public fre:FixedRateExchange
-    public freAddress="0xf26c6C93f9f1d725e149d95f8E7B2334a406aD10"
+    public network:any
 	
 	constructor(signer: Signer, network: number, config?: Config) {
 		this.signer = signer;
 		//this.config = config || new ConfigHelper().getConfig(network);
 		this.subgraphURL = getSubgraphURL(network)
-        this.fre = new FixedRateExchange(this.freAddress,this.signer,network)
+        this.network=network
 	}
 	// utils
 	public async sleep(ms: number) {
@@ -34,7 +34,8 @@ export class Commands {
     public async showAll(){
         const fres:any=await fetchAllFre(this.subgraphURL)
         for(const fre of fres){
-            const info=await this.fre.getFeesInfo(fre.exchangeId)
+            const fixedContract = new FixedRateExchange(fre.contract,this.signer,this.network)
+            const info=await fixedContract.getFeesInfo(fre.exchangeId)
             console.log(info)
         }
         
@@ -49,12 +50,13 @@ export class Commands {
         }
         const fres:any=await fetchAllFre(this.subgraphURL)
         for(const fre of fres){
-            const info=await this.fre.getFeesInfo(fre.exchangeId)
+            const fixedContract = new FixedRateExchange(fre.contract,this.signer,this.network)
+            const info=await fixedContract.getFeesInfo(fre.exchangeId)
             console.log(info)
             //console.log(args)   
             if(info.marketFeeCollector.toLowerCase()==args[1].toLowerCase() && parseFloat(args[2])<=parseFloat(info.marketFeeAvailable)){
                 console.log("Claiming...")
-                const tx=await this.fre.collectMarketFee(fre.exchangeId)
+                const tx=await fixedContract.collectMarketFee(fre.exchangeId)
                 console.log("Claim tx: "+tx.hash)
                 await this.signer.provider?.waitForTransaction(tx.hash,2)
                 

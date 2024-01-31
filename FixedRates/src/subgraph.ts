@@ -14,16 +14,6 @@ export function getSubgraphURL(chainId:number):string{
     }
     return url
 }
-/*
-    
-    
-    }
-    ,
-    { 
-        chainId:23294,
-        subgraphURL:"https://v4.subgraph.sapphire-mainnet.oceanprotocol.com/",
-    }
-*/
 
 
 export async function fetchAllFre(subgraphURL){
