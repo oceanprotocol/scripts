@@ -12,7 +12,7 @@ python main.py
 predictoor_stats$ python main.py
 
 Usage:  main.py <contract_address> <number_of_slots> <sort_method> <until_timestamp>
-*contract_address: feed to get_predictions, or use 'all'
+*contract_address: feed to get_predictions, or you can use all/300/3600 for agregation
 *number_of_slots: how many slots per feed to get (default 10)
 *sort_method=1:  slot desc,user_address
 *sort_method=2:  slot desc,amount desc,user_address (default)

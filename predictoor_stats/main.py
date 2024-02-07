@@ -8,7 +8,7 @@ from subgrapy import get_predictions,print_nice,get_contracts,print_contracts
 
 if len(sys.argv) < 2 or sys.argv[1] is None:
     print("Usage:  main.py <contract_address> <number_of_slots> <sort_method> <until_timestamp>")
-    print("*contract_address: feed to get_predictions, or use 'all'")
+    print("*contract_address: feed to get_predictions, or you can use all/300/3600 for agregation")
     print("*number_of_slots: how many slots per feed to get (default 10)")
     print("*sort_method=1:  slot desc,user_address")
     print("*sort_method=2:  slot desc,amount desc,user_address (default)")
@@ -19,8 +19,8 @@ if len(sys.argv) < 2 or sys.argv[1] is None:
     sys.exit()
 
 jobs=[]
-if sys.argv[1]=='all':
-    contracts=get_contracts()
+if sys.argv[1]=='all' or sys.argv[1]=='300' or sys.argv[1]=='3600':
+    contracts=get_contracts(sys.argv[1])
     data_t= [list(t) for t in contracts]
     for dta in data_t:
         jobs.append(dta[0])

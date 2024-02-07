@@ -16,7 +16,7 @@ def query_subgraph(query):
     result = request.json()
     return result
 
-def get_contracts():
+def get_contracts(seconds=None):
     contracts=[]
     query = """
         {
@@ -32,7 +32,11 @@ def get_contracts():
     try:
         result = query_subgraph( query)
         for contract in result["data"]["predictContracts"]:
-            contracts.append((contract["id"],contract["token"]["name"],contract["secondsPerEpoch"]))
+            if seconds is None or seconds=='all':
+                contracts.append((contract["id"],contract["token"]["name"],contract["secondsPerEpoch"]))
+            else:
+                if seconds==contract['secondsPerEpoch']:
+                    contracts.append((contract["id"],contract["token"]["name"],contract["secondsPerEpoch"]))
                 
     except Exception as e:
             print(e)
