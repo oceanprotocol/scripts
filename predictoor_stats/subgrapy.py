@@ -7,7 +7,7 @@ from tabulate import tabulate
 SUBGRAPH_URL="http://v4.subgraph.sapphire-mainnet.oceanprotocol.com/subgraphs/name/oceanprotocol/ocean-subgraph"
 
 def query_subgraph(query):
-    request = requests.post(SUBGRAPH_URL, "", json={"query": query}, timeout=1.5)
+    request = requests.post(SUBGRAPH_URL, "", json={"query": query}, timeout=15)
     if request.status_code != 200:
         # pylint: disable=broad-exception-raised
         raise Exception(
